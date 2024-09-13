@@ -24,3 +24,19 @@ class Task(db.Model):
 def index():
     tasks = Task.query.all()  # Get all tasks
     return render_template('index.html', tasks=tasks)
+
+# Add a new task
+@app.route('/add', methods=['POST'])
+def add_task():
+    task_content = request.form['content']
+    
+    if task_content:
+        new_task = Task(content=task_content)
+        try:
+            db.session.add(new_task)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'There was an issue adding your task'
+    else:
+        return 'Task content cannot be empty!'
