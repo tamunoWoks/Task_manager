@@ -40,3 +40,15 @@ def add_task():
             return 'There was an issue adding your task'
     else:
         return 'Task content cannot be empty!'
+
+# Delete a task
+@app.route('/delete/<int:id>')
+def delete_task(id):
+    task_to_delete = Task.query.get_or_404(id)
+
+    try:
+        db.session.delete(task_to_delete)
+        db.session.commit()
+        return redirect('/')
+    except:
+        return 'There was a problem deleting that task'
