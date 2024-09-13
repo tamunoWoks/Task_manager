@@ -52,3 +52,9 @@ def delete_task(id):
         return redirect('/')
     except:
         return 'There was a problem deleting that task'
+
+# Main function to run the app
+if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()  # Create the database
+    app.run(debug=True)
