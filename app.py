@@ -18,3 +18,9 @@ class Task(db.Model):
 
     def __repr__(self):
         return f'<Task {self.id}>'
+
+# Home page showing the list of tasks
+@app.route('/')
+def index():
+    tasks = Task.query.all()  # Get all tasks
+    return render_template('index.html', tasks=tasks)
